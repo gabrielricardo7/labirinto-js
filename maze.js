@@ -17,17 +17,29 @@ const map = [
     "WWWWWWWWWWWWWWWWWWWWW",
 ];
 
-let variable = 0;
+const player = document.createElement("div");
+player.id = "player";
+
 for (let i = 0; i < map.length; i++) {
     const line = document.createElement("div");
     line.id = `${"line" + i}`;
-    line.style = "display: flex; height: 32px; width: 672px; background-color: #00a;";
+    line.style = "display: flex; height: 32px; width: 672px;";
     document.querySelector("body").appendChild(line);
+
     for (let j = 0; j < map[i].length; j++) {
         const cell = document.createElement("div");
-        cell.className = "cell";
+        if (map[i][j] === "W") {
+            cell.className = "wall";
+        } else if (map[i][j] === "S") {
+            cell.className = "start";
+        } else if (map[i][j] === "F") {
+            cell.className = "finish";
+        } else {
+            cell.className = "space";
+        }
+        cell.classList.add("cell");
         line.appendChild(cell);
-        variable++;
-        console.log(variable);
     }
 }
+
+document.querySelector(".start").appendChild(player);
