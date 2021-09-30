@@ -19,8 +19,14 @@ const map = [
 
 let variable = 0;
 for (let i = 0; i < map.length; i++) {
+    const line = document.createElement("div");
+    line.id = `${"line" + i}`;
+    line.style = "display: flex; height: 32px; width: 672px; background-color: #00a;";
+    document.querySelector("body").appendChild(line);
     for (let j = 0; j < map[i].length; j++) {
-        document.querySelector("body").appendChild(document.createElement("div"));
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        line.appendChild(cell);
         variable++;
         console.log(variable);
     }
