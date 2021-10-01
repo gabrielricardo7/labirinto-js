@@ -28,9 +28,10 @@ const message = document.createElement("p");
 let playerX = 0;
 let playerY = 0;
 let enable = true;
+let timer = 300;
 
 player.id = "player";
-player.className = "block";
+player.className = "slideRight";
 modal.className = "modal";
 modalContent.className = "modal-content";
 btnClose.className = "close";
@@ -56,21 +57,25 @@ document.addEventListener('keydown', (event) => {
     if (enable) {
         if (keyName === "ArrowUp") {
             if (player.parentElement.parentElement.previousElementSibling.children[playerX].classList[0] === "cell") {
+                player.className = "slideUp";
                 player.parentElement.parentElement.previousElementSibling.children[playerX].appendChild(player);
                 playerY--;
             }
         } else if (keyName === "ArrowDown") {
             if (player.parentElement.parentElement.nextElementSibling.children[playerX].classList[0] === "cell") {
+                player.className = "slideDown";
                 player.parentElement.parentElement.nextElementSibling.children[playerX].appendChild(player);
                 playerY++;
             }
         } else if (keyName === "ArrowLeft") {
             if (player.parentElement.previousElementSibling.classList[0] === "cell") {
+                player.className = "slideLeft";
                 player.parentElement.previousElementSibling.appendChild(player);
                 playerX--;
             }
         } else if (keyName === "ArrowRight") {
             if (player.parentElement.nextElementSibling.classList[0] === "cell") {
+                player.className = "slideLeft";
                 player.parentElement.nextElementSibling.appendChild(player);
                 playerX++;
             }
@@ -112,12 +117,12 @@ function resetMaze() {
         playerX = 0;
         playerY = player.parentElement.parentElement.id.substring(4);
         enable = true;
-    }, 100);
+    }, timer);
 }
 
 function showModal(msg) {
     setTimeout(function () {
         message.innerText = msg;
         modal.style.display = "block";
-    }, 100);
+    }, timer);
 }

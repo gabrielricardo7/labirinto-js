@@ -15,8 +15,28 @@ body {
 }
 
 #player {
+    width: var(--size);
+    height: var(--size);
     background-color: #FAE845;
     border-radius: 50%;
+    animation-duration: 100ms;
+}
+
+#line9::before {
+    content: "Start";
+    font-size: 24px;
+    font-weight: 300;
+    width: 0;
+    color: #7E1D0A;
+    transform: translateX(-64px);
+}
+
+#line8::after {
+    content: "Finish";
+    font-size: 24px;
+    font-weight: 300;
+    width: 0px;
+    color: #296616;
 }
 
 .block {
@@ -29,11 +49,11 @@ body {
 }
 
 .start {
-    background-color: #F00;
+    background-color: #FC5753;
 }
 
 .finish {
-    background-color: #0F0;
+    background-color: #54C748;
 }
 
 .modal {
@@ -51,7 +71,7 @@ body {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #FEFEFE;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
@@ -59,13 +79,14 @@ body {
     width: 50%;
     text-align: center;
     font-size: 20px;
+    font-weight: 400;
 }
 
 .close {
     color: #DF4744;
     float: left;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     border-radius: 50%;
     border-color: #DF4744;
     background-color: #FC5753;
@@ -77,4 +98,56 @@ body {
     color: #7E1D0A;
     text-decoration: none;
     cursor: pointer;
+}
+
+@keyframes slideUp {
+    from {
+        margin-bottom: -33px;
+    }
+    to {
+        margin-bottom: 0;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        margin-top: -33px;
+    }
+    to {
+        margin-top: 0;
+    }
+}
+
+@keyframes slideLeft {
+    from {
+        margin-right: -33px;
+    }
+    to {
+        margin-right: 0;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        margin-left: -33px;
+    }
+    to {
+        margin-left: 0;
+    }
+}
+
+.slideUp {
+    animation-name: slideUp;
+}
+
+.slideDown {
+    animation-name: slideDown;
+}
+
+.slideLeft {
+    animation-name: slideLeft;
+}
+
+.slideRight {
+    animation-name: slideRight;
 }
