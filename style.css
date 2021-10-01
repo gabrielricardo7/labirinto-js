@@ -1,14 +1,28 @@
-.cell {
+body {
+    background-color: #000;
+    margin: 0;
+}
+
+.block {
     width: 32px;
     height: 32px;
 }
 
 .wall {
-    background-color: #00a;
+    background-color: #005399;
+}
+
+.start {
+    background-color: #F00;
+}
+
+.finish {
+    background-color: #0F0;
 }
 
 #player {
     width: 32px;
     height: 32px;
-    background-color: #f00;
+    background-color: #FAE845;
+    border-radius: 50%;
 }
