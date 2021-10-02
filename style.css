@@ -6,6 +6,7 @@
 body {
     font-family: var(--font);
     margin: 0;
+    text-align: center;
 }
 
 #maze {
@@ -22,17 +23,38 @@ body {
     animation-duration: 100ms;
 }
 
+#title {
+    font-size: 32px;
+    font-weight: 400;
+    color: #005399;
+    margin: 8px auto;
+    width: fit-content;
+}
+
+#time {
+    font-size: 16px;
+    font-weight: 700;
+    color: #7E1D0A;
+    margin: 8px auto;
+    width: fit-content;
+    border-color: #FAE845;
+    border-radius: 5px;
+    border-style: outset;
+    border-width: thick;
+    padding: 8px;
+}
+
 #line9::before {
-    content: "Start";
+    content: "Iniciar";
     font-size: 24px;
     font-weight: 300;
     width: 0;
     color: #7E1D0A;
-    transform: translateX(-64px);
+    transform: translateX(-75px);
 }
 
 #line8::after {
-    content: "Finish";
+    content: "Fim";
     font-size: 24px;
     font-weight: 300;
     width: 0px;
@@ -67,7 +89,7 @@ body {
     height: 100%;
     overflow: auto;
     background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-content {

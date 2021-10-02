@@ -1,4 +1,4 @@
-// Labirinto | Maze: W = wall, S = start, F = finish
+// Maze (Labirinto): W = wall (muro), S = start (iniciar), F = finish (fim)
 const map = [
     "WWWWWWWWWWWWWWWWWWWWW",
     "W   W     W     W W W",
@@ -24,11 +24,12 @@ const modal = document.createElement("div");
 const modalContent = document.createElement("div");
 const btnClose = document.createElement("span");
 const message = document.createElement("p");
+const time = document.querySelector("#time");
 
+let timer = 30;
 let playerX = 0;
 let playerY = 0;
 let enable = true;
-let timer = 300;
 
 player.id = "player";
 player.className = "slideRight";
@@ -39,8 +40,12 @@ btnClose.className = "close";
 btnClose.innerHTML = "&times;";
 
 btnClose.onclick = function () {
+    showTime();
     modal.style.display = "none";
     resetMaze();
+    setTimeout(function () {
+        hurryUp();
+    }, 500);
 }
 
 modalContent.appendChild(btnClose);
@@ -49,31 +54,31 @@ modal.appendChild(modalContent);
 body.appendChild(modal);
 
 buildMaze();
-resetMaze();
+gameStart();
 
 document.addEventListener('keydown', (event) => {
     const keyName = event.key;
 
     if (enable) {
-        if (keyName === "ArrowUp") {
+        if (keyName === "ArrowUp" || keyName === "w") {
             if (player.parentElement.parentElement.previousElementSibling.children[playerX].classList[0] === "cell") {
                 player.className = "slideUp";
                 player.parentElement.parentElement.previousElementSibling.children[playerX].appendChild(player);
                 playerY--;
             }
-        } else if (keyName === "ArrowDown") {
+        } else if (keyName === "ArrowDown" || keyName === "s") {
             if (player.parentElement.parentElement.nextElementSibling.children[playerX].classList[0] === "cell") {
                 player.className = "slideDown";
                 player.parentElement.parentElement.nextElementSibling.children[playerX].appendChild(player);
                 playerY++;
             }
-        } else if (keyName === "ArrowLeft") {
+        } else if (keyName === "ArrowLeft" || keyName === "a") {
             if (player.parentElement.previousElementSibling.classList[0] === "cell") {
                 player.className = "slideLeft";
                 player.parentElement.previousElementSibling.appendChild(player);
                 playerX--;
             }
-        } else if (keyName === "ArrowRight") {
+        } else if (keyName === "ArrowRight" || keyName === "d") {
             if (player.parentElement.nextElementSibling.classList[0] === "cell") {
                 player.className = "slideLeft";
                 player.parentElement.nextElementSibling.appendChild(player);
@@ -81,9 +86,13 @@ document.addEventListener('keydown', (event) => {
             }
         }
         if (player.parentElement.classList[1] === "finish") {
-            enable = false;
-            showModal("Você venceu!");
+            youWin();
         }
+    }
+    if (keyName === "Enter" && modal.style.display === "block") {
+        setTimeout(function () {
+            btnClose.click();
+        }, 500);
     }
 });
 
@@ -109,20 +118,54 @@ function buildMaze() {
             line.appendChild(cell);
         }
     }
+    showTime();
 }
 
 function resetMaze() {
     setTimeout(function () {
         document.querySelector(".start").appendChild(player);
+        timer = 30;
         playerX = 0;
         playerY = player.parentElement.parentElement.id.substring(4);
         enable = true;
-    }, timer);
+    }, 100);
 }
 
 function showModal(msg) {
+    enable = false;
     setTimeout(function () {
-        message.innerText = msg;
+        message.innerHTML = msg;
         modal.style.display = "block";
-    }, timer);
+    }, 300);
+}
+
+function youWin() {
+    showModal("&#x2B50;<br>Parabéns…<br><br><strong>Você venceu!</strong><br><br><em>Chegou em " + (31 - timer) + " segundos.</em>");
+}
+
+function hurryUp() {
+    if (enable) {
+        if (timer === 0) {
+            gameOver();
+        }
+        setTimeout(function () {
+            if (timer > 0) {
+                timer--;
+                showTime();
+                hurryUp();
+            }
+        }, 1000);
+    }
+}
+
+function showTime() {
+    time.innerText = "Tempo: " + timer;
+}
+
+function gameOver() {
+    showModal("&#x231B;<br><em>O tempo acabou…</em><br><br><strong>Fim de jogo!</strong><br><br>Tentar de novo?");
+}
+
+function gameStart() {
+    showModal("<strong>Labirinto JS &#x1f579;</strong><br>&copy; 2021 Gabriel Ricardo<br><br><em>Instruções:</em><br><br>Use as teclas direcionais (setas)<br>ou as teclas WASD [&uarr;&larr;&darr;&rarr;]<br>para atravessar o labirinto…<br><br>Pressione [&crarr;] (enter ou return)<br>para começar.");
 }
